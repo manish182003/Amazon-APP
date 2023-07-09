@@ -1,6 +1,7 @@
 import 'package:amazon_app/common/widgets/custom%20button.dart';
 import 'package:amazon_app/common/widgets/custom_textfield.dart';
 import 'package:amazon_app/constants/global%20variable.dart';
+import 'package:amazon_app/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum auth {
@@ -20,6 +21,7 @@ class _authscreenState extends State<authscreen> {
   auth selectedAuth = auth.signup;
   final signupformkey = GlobalKey<FormState>();
   final signinformkey = GlobalKey<FormState>();
+  final authservice auth1 = authservice();
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
   final TextEditingController namecontroller = TextEditingController();
@@ -30,6 +32,23 @@ class _authscreenState extends State<authscreen> {
     emailcontroller.dispose();
     passwordcontroller.dispose();
     namecontroller.dispose();
+  }
+
+  void signupuser() {
+    auth1.signupuser(
+      context: context,
+      email: emailcontroller.text,
+      password: passwordcontroller.text,
+      name: namecontroller.text,
+    );
+  }
+
+  void signinuser() {
+    auth1.signinuser(
+      context: context,
+      email: emailcontroller.text,
+      password: passwordcontroller.text,
+    );
   }
 
   @override
@@ -98,14 +117,18 @@ class _authscreenState extends State<authscreen> {
                         customtextfield(
                           textEditingController: passwordcontroller,
                           hinttext: "Password",
+                          ispassword: true,
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         custombutton(
-                          text: "Sign Up",
-                          ontap: () {},
-                        )
+                            text: "Sign Up",
+                            ontap: () {
+                              if (signupformkey.currentState!.validate()) {
+                                signupuser();
+                              }
+                            })
                       ],
                     ),
                   ),
@@ -136,7 +159,7 @@ class _authscreenState extends State<authscreen> {
                   padding: EdgeInsets.all(8),
                   color: globalvariable.backgroundColor,
                   child: Form(
-                    key: signupformkey,
+                    key: signinformkey,
                     child: Column(
                       children: [
                         customtextfield(
@@ -149,13 +172,18 @@ class _authscreenState extends State<authscreen> {
                         customtextfield(
                           textEditingController: passwordcontroller,
                           hinttext: "Password",
+                          ispassword: true,
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         custombutton(
                           text: "Sign In",
-                          ontap: () {},
+                          ontap: () {
+                            if (signinformkey.currentState!.validate()) {
+                              signinuser();
+                            }
+                          },
                         )
                       ],
                     ),

@@ -1,7 +1,7 @@
 const express=require('express');
 const user = require('../models/user');
 const bcryptjs=require('bcrypt');
-
+const jwt=require('jsonwebtoken');
 const authrouter=express.Router();
 
 //sign up 
@@ -14,9 +14,9 @@ authrouter.post('/api/signup', async (req,res)=>{
         if(existinguser){
             return res.status(400).json({msg:'User with same email already exists!'});
         }
-        if(smallpassword){
-            return res.status(400).json({msg:'Password is less then 6 characters'});
-        }
+        // if(smallpassword){
+        //     return res.status(402).json({msg:'Password is less then 6 characters'});
+        // }
      const hashedpassword = await  bcryptjs.hash(password,8);
         
         let User=new user({
@@ -37,6 +37,35 @@ authrouter.post('/api/signup', async (req,res)=>{
 
 });
 
+//sign in route
 
+
+authrouter.post('/api/signin',async (req,res)=>{
+   try{
+    const  {email,password}=req.body;
+    const User=await user.findOne({email});
+if(!User){
+  return res.status(400).json({msg: 'User with this email does not Exists!'});
+}
+const ismatch= await bcryptjs.compare(password,User.password);
+
+if(!ismatch){
+    return res.status(400).json({msg: 'Incorrect Password'});
+}
+const token= jwt.sign({id: User._id},"passwordkey");
+res.json({token,...User._doc});
+
+
+
+
+   }catch(e){
+res.status(500).json({error:req.message});
+
+   }
+
+
+
+
+});
 
 module.exports=authrouter;
