@@ -23,14 +23,7 @@ email:{
 password:{
     required:true,
     type: String,
-    validate:{
-        validator:(value)=>{
-           
-          return value.length>6 ;
-    
-        },
-        message: 'Please Enter a password greater then 6',
-    }
+   
 },
 address:{
     type:String,

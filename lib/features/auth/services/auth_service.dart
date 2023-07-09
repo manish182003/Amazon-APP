@@ -67,7 +67,7 @@ class authservice {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print(res.body);
+      //print(res.body);
       httperrorhandle(
         response: res,
         context: context,
@@ -78,10 +78,47 @@ class authservice {
           Navigator.pushNamedAndRemoveUntil(
             context,
             homescreen.route,
-            (route) => false,
+            (route) => true,
           );
         },
       );
+    } catch (e) {
+      showsnackbar(context, e.toString());
+    }
+  }
+
+  void getuserdata(BuildContext context) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      if (token == null) {
+        prefs.setString('x-auth-token', '');
+      }
+      var tokenres = await http.post(
+        Uri.parse('$uri/tokenisvalid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!
+        },
+      );
+
+      var response = jsonDecode(tokenres.body);
+
+      if (response == true) {
+        //getuserdata
+        http.Response userresponse = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token
+          },
+        );
+
+        var userprovider = Provider.of<UserProvider>(context, listen: false)
+            .setuser(userresponse.body);
+      }
+ 
     } catch (e) {
       showsnackbar(context, e.toString());
     }
