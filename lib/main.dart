@@ -54,7 +54,7 @@ class _MainAppState extends State<MainApp> {
       ),
       onGenerateRoute: (settings) => generateroute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const Bottombar()
+          ? const homescreen()
           : const authscreen(),
     );
   }
