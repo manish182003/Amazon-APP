@@ -1,3 +1,4 @@
+import 'package:amazon_app/common/widgets/bottom_bar.dart';
 import 'package:amazon_app/constants/global%20variable.dart';
 import 'package:amazon_app/features/auth/screens/auth_screen.dart';
 import 'package:amazon_app/features/auth/services/auth_service.dart';
@@ -6,6 +7,7 @@ import 'package:amazon_app/provider/user_provider.dart';
 import 'package:amazon_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -31,7 +33,13 @@ class _MainAppState extends State<MainApp> {
   }
 
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light),
+    );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: globalvariable.backgroundColor,
         colorScheme: const ColorScheme.light(
@@ -46,7 +54,7 @@ class _MainAppState extends State<MainApp> {
       ),
       onGenerateRoute: (settings) => generateroute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const homescreen()
+          ? const Bottombar()
           : const authscreen(),
     );
   }

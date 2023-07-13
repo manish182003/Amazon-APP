@@ -115,7 +115,7 @@ class authservice {
           },
         );
 
-        var userprovider = Provider.of<UserProvider>(context, listen: false)
+       Provider.of<UserProvider>(context, listen: false)
             .setuser(userresponse.body);
       }
  
