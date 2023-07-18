@@ -67,7 +67,7 @@ class authservice {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      //print(res.body);
+     // print(res.body);
       httperrorhandle(
         response: res,
         context: context,
@@ -95,7 +95,7 @@ class authservice {
       if (token == null) {
         prefs.setString('x-auth-token', '');
       }
-      var tokenres = await http.post(
+      var tokenres =  await http.post(
         Uri.parse('$uri/tokenisvalid'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -115,10 +115,9 @@ class authservice {
           },
         );
 
-       Provider.of<UserProvider>(context, listen: false)
+        Provider.of<UserProvider>(context, listen: false)
             .setuser(userresponse.body);
       }
- 
     } catch (e) {
       showsnackbar(context, e.toString());
     }

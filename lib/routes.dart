@@ -1,4 +1,5 @@
 import 'package:amazon_app/common/widgets/bottom_bar.dart';
+import 'package:amazon_app/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_app/features/auth/screens/auth_screen.dart';
 import 'package:amazon_app/features/home/screens/homescreen.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,11 @@ Route<dynamic> generateroute(RouteSettings routeName) {
       return MaterialPageRoute(
         settings: routeName,
         builder: (context) => const Bottombar(),
+      );
+      case addproducts.route:
+      return MaterialPageRoute(
+        settings: routeName,
+        builder: (context) => const addproducts(),
       );
     default:
       return MaterialPageRoute(

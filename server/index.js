@@ -41,7 +41,7 @@ mongoose.connect(db).then(()=>{
 // get, put,post,delete,update -> crud
 
 
-app.listen(Port,"0.0.0.0", () => {
+app.listen(Port,"192.168.30.10", () => {
     console.log(`connected at port ${Port} `);
 }
 )
