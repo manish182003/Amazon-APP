@@ -1,4 +1,4 @@
-const jwt=require('jsonwebtoken');
+ jwt=require('jsonwebtoken');
 
 const auth=async (req,res,next)=>{
    try{

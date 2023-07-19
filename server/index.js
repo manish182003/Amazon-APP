@@ -3,10 +3,12 @@
 //import from package
 const express = require('express');
 const mongoose=require('mongoose');
+
 //import 'package:express/express.dart'
 
 //import from other files
 const authrouter=require('./routes/auth');
+const adminrouter=require('./routes/admin');
 
 //init
 const Port = 3000;
@@ -17,7 +19,7 @@ const db="mongodb+srv://manishjoshi182003:390113192875@cluster0.yxslajb.mongodb.
 //client -> middleware-> server->client
 app.use(express.json())
 app.use(authrouter);
-
+app.use(adminrouter);
 //connections
 mongoose.connect(db).then(()=>{
     console.log('connection succesful')

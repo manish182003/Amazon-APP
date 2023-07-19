@@ -28,7 +28,7 @@ class topcategory extends StatelessWidget {
               ),
               Text(
                 globalvariable.categoryImages[index]['title']!,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
               ),
             ],
           );

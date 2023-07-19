@@ -4,14 +4,14 @@ import 'package:amazon_app/common/widgets/custom%20button.dart';
 import 'package:amazon_app/common/widgets/custom_textfield.dart';
 import 'package:amazon_app/constants/global%20variable.dart';
 import 'package:amazon_app/constants/utils.dart';
+import 'package:amazon_app/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class addproducts extends StatefulWidget {
   static const String route = '/addproduct';
-  const addproducts({super.key});
-
+  const addproducts({Key? key}) : super(key: key);
   @override
   State<addproducts> createState() => _addproductsState();
 }
@@ -21,14 +21,17 @@ class _addproductsState extends State<addproducts> {
   final TextEditingController description = TextEditingController();
   final TextEditingController price = TextEditingController();
   final TextEditingController quantity = TextEditingController();
-  String? Category = 'Mobiles';
+  final adminservices admin = adminservices();
+  String category = 'Mobiles';
   List<File> images = [];
+  var addproductformkey = GlobalKey<FormState>();
   @override
   void dispose() {
     productname.dispose();
     description.dispose();
     price.dispose();
     quantity.dispose();
+  
     super.dispose();
   }
 
@@ -40,13 +43,25 @@ class _addproductsState extends State<addproducts> {
     'Fashion',
   ];
 
+  void sellproduct() {
+    if (addproductformkey.currentState!.validate() && images.isNotEmpty) {
+      admin.sellproduct(
+        context: context,
+        name: productname.text,
+        description: description.text,
+        price: double.parse(price.text),
+        quantity: double.parse(quantity.text),
+        category: category,
+        images: images,
+      );
+    }
+  }
+
   void selectimages() async {
     var res = await pickimages();
 
     setState(() {
-      
-        images = res;
-     
+      images = res;
     });
   }
 
@@ -72,7 +87,9 @@ class _addproductsState extends State<addproducts> {
         ),
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Form(
+          key: addproductformkey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
@@ -171,7 +188,7 @@ class _addproductsState extends State<addproducts> {
                 SizedBox(
                   width: double.infinity,
                   child: DropdownButton(
-                    value: Category,
+                    value: category,
                     icon: Icon(Icons.keyboard_arrow_down),
                     items: productcategories.map((String item) {
                       return DropdownMenuItem(
@@ -181,7 +198,7 @@ class _addproductsState extends State<addproducts> {
                     }).toList(),
                     onChanged: (String? value) {
                       setState(() {
-                        Category = value;
+                        category = value!;
                       });
                     },
                   ),
@@ -191,7 +208,7 @@ class _addproductsState extends State<addproducts> {
                 ),
                 custombutton(
                   text: 'Sell',
-                  ontap: () {},
+                  ontap: sellproduct,
                 ),
                 SizedBox(
                   height: 10,
