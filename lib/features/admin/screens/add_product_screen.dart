@@ -31,7 +31,7 @@ class _addproductsState extends State<addproducts> {
     description.dispose();
     price.dispose();
     quantity.dispose();
-  
+
     super.dispose();
   }
 
