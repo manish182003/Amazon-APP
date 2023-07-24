@@ -3,9 +3,10 @@ import 'package:amazon_app/features/home/widgets/addressbox.dart';
 import 'package:amazon_app/features/home/widgets/carousel_images.dart';
 import 'package:amazon_app/features/home/widgets/dealoftheday.dart';
 import 'package:amazon_app/features/home/widgets/top_category.dart';
-import 'package:amazon_app/provider/user_provider.dart';
+import 'package:amazon_app/features/search/screens/searchscreen.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class homescreen extends StatefulWidget {
   static const String route = '/home';
@@ -17,6 +18,10 @@ class homescreen extends StatefulWidget {
 }
 
 class _homescreenState extends State<homescreen> {
+  void navigatetosearchscreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.route, arguments: query);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +45,7 @@ class _homescreenState extends State<homescreen> {
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
+                      onFieldSubmitted: navigatetosearchscreen,
                       decoration: InputDecoration(
                         prefixIcon: InkWell(
                           onTap: () {},

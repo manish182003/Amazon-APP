@@ -9,6 +9,7 @@ const mongoose=require('mongoose');
 //import from other files
 const authrouter=require('./routes/auth');
 const adminrouter=require('./routes/admin');
+const productrouter = require('./routes/product');
 
 //init
 const Port = 3000;
@@ -20,6 +21,7 @@ const db="mongodb+srv://manishjoshi182003:390113192875@cluster0.yxslajb.mongodb.
 app.use(express.json())
 app.use(authrouter);
 app.use(adminrouter);
+app.use(productrouter);
 //connections
 mongoose.connect(db).then(()=>{
     console.log('connection succesful')
@@ -43,7 +45,7 @@ mongoose.connect(db).then(()=>{
 // get, put,post,delete,update -> crud
 
 
-app.listen(Port,"192.168.30.10", () => {
+app.listen(Port,"", () => {
     console.log(`connected at port ${Port} `);
 }
 )

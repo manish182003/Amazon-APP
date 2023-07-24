@@ -1,5 +1,6 @@
 
 const mongoose=require('mongoose');
+const ratingschema = require('./rating');
 
 
 const productschema=mongoose.Schema({
@@ -32,6 +33,8 @@ category:{
     type: String,
     required:true,
 },
+
+ratings:[ratingschema],
 
 
 

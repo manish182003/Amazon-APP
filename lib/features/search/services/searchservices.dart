@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:amazon_app/constants/error%20handling.dart';
 import 'package:amazon_app/constants/global%20variable.dart';
 import 'package:amazon_app/constants/utils.dart';
@@ -8,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class homeservices {
-  Future<List<Product>> fetchcategoryproducts({
+class SearchServices {
+  Future<List<Product>> fetchsearchproducts({
     required BuildContext context,
-    required String Category,
+    required String searchquery,
   }) async {
     final userprovider = Provider.of<UserProvider>(context, listen: false).user;
     List<Product> productlist = [];
     try {
       http.Response res = await http.get(
-        Uri.parse('$uri/api/products?category=$Category'),
+        Uri.parse('$uri/api/products/search/$searchquery'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userprovider.token,
@@ -41,38 +42,5 @@ class homeservices {
       showsnackbar(context, e.toString());
     }
     return productlist;
-  }
-
-  Future<Product> fetchDealOfTheDay({
-    required BuildContext context,
-  }) async {
-    final userprovider = Provider.of<UserProvider>(context, listen: false).user;
-    Product product = Product(
-      name: '',
-      description: '',
-      quantity: 0,
-      images: [],
-      category: '',
-      price: 0,
-    );
-    try {
-      http.Response res = await http.get(
-        Uri.parse('$uri/api/deal-of-day'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userprovider.token,
-        },
-      );
-      httperrorhandle(
-        response: res,
-        context: context,
-        onsuccess: () {
-          product = Product.fromJson(res.body);
-        },
-      );
-    } catch (e) {
-      showsnackbar(context, e.toString());
-    }
-    return product;
   }
 }
