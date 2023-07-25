@@ -46,4 +46,4 @@ ratings:[ratingschema],
 
 
 const Product=mongoose.model('Product',productschema);
-module.exports=Product;
+module.exports={Product,productschema};

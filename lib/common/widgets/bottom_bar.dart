@@ -1,7 +1,10 @@
 import 'package:amazon_app/constants/global%20variable.dart';
 import 'package:amazon_app/features/account/screens/accountscreen.dart';
+import 'package:amazon_app/features/cart/screens/cart_screen.dart';
 import 'package:amazon_app/features/home/screens/homescreen.dart';
+import 'package:amazon_app/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Bottombar extends StatefulWidget {
   static const String route = '/actualhome';
@@ -18,9 +21,7 @@ class _BottombarState extends State<Bottombar> {
   List<Widget> pages = [
     const homescreen(),
     const accountscreen(),
-    const Center(
-      child: Text('Cart Page'),
-    ),
+    const CartScreen(),
   ];
 
   void updatepage(int page) {
@@ -31,6 +32,7 @@ class _BottombarState extends State<Bottombar> {
 
   @override
   Widget build(BuildContext context) {
+    final usercartlength = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
       body: pages[page],
       bottomNavigationBar: BottomNavigationBar(
@@ -100,7 +102,7 @@ class _BottombarState extends State<Bottombar> {
                   ),
                 ),
                 child: Badge(
-                  label: Text('2'),
+                  label: Text(usercartlength.toString()),
                   textColor: Colors.black,
                   textStyle: TextStyle(
                     fontWeight: FontWeight.bold,

@@ -22,13 +22,15 @@ class authservice {
   }) async {
     try {
       User user = User(
-          id: "",
-          name: name,
-          password: password,
-          email: email,
-          address: "",
-          type: "",
-          token: "");
+        id: "",
+        name: name,
+        password: password,
+        email: email,
+        address: "",
+        type: "",
+        token: "",
+        cart: [],
+      );
 
       http.Response res = await http.post(
         Uri.parse('$uri/api/signup'),
@@ -67,7 +69,7 @@ class authservice {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-     // print(res.body);
+      // print(res.body);
       httperrorhandle(
         response: res,
         context: context,
@@ -95,7 +97,7 @@ class authservice {
       if (token == null) {
         prefs.setString('x-auth-token', '');
       }
-      var tokenres =  await http.post(
+      var tokenres = await http.post(
         Uri.parse('$uri/tokenisvalid'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

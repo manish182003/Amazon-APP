@@ -10,6 +10,7 @@ const mongoose=require('mongoose');
 const authrouter=require('./routes/auth');
 const adminrouter=require('./routes/admin');
 const productrouter = require('./routes/product');
+const userrouter = require('./routes/user');
 
 //init
 const Port = 3000;
@@ -22,6 +23,7 @@ app.use(express.json())
 app.use(authrouter);
 app.use(adminrouter);
 app.use(productrouter);
+app.use(userrouter);
 //connections
 mongoose.connect(db).then(()=>{
     console.log('connection succesful')
