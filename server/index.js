@@ -24,6 +24,9 @@ app.use(authrouter);
 app.use(adminrouter);
 app.use(productrouter);
 app.use(userrouter);
+
+
+
 //connections
 mongoose.connect(db).then(()=>{
     console.log('connection succesful')

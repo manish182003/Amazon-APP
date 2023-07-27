@@ -1,3 +1,5 @@
+import 'package:amazon_app/features/cart/services/cart_services.dart';
+import 'package:amazon_app/features/product_details/services/product_details_services.dart';
 import 'package:amazon_app/models/product.dart';
 import 'package:amazon_app/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,13 @@ class cartproduct extends StatefulWidget {
 }
 
 class _cartproductState extends State<cartproduct> {
+  ProductDetailsServices productDetailsServices = ProductDetailsServices();
+  cartservices cart = cartservices();
+
+  void decreasequantity(Product product) {
+    cart.removefromcart(context: context, product: product);
+  }
+
   @override
   Widget build(BuildContext context) {
     final productcart = context.watch<UserProvider>().user.cart[widget.Index];
@@ -97,11 +106,16 @@ class _cartproductState extends State<cartproduct> {
                     color: Colors.black12),
                 child: Row(
                   children: [
-                    Container(
-                      width: 35,
-                      height: 32,
-                      alignment: Alignment.center,
-                      child: Icon(Icons.remove),
+                    InkWell(
+                      onTap: () {
+                        decreasequantity(product);
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 32,
+                        alignment: Alignment.center,
+                        child: Icon(Icons.remove),
+                      ),
                     ),
                     DecoratedBox(
                       decoration: BoxDecoration(
@@ -116,6 +130,21 @@ class _cartproductState extends State<cartproduct> {
                         height: 32,
                         alignment: Alignment.center,
                         child: Text(quantity.toString()),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        productDetailsServices.AddToCart(
+                            context: context, product: product);
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 32,
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.add,
+                          size: 18,
+                        ),
                       ),
                     )
                   ],

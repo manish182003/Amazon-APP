@@ -8,6 +8,7 @@ import 'package:amazon_app/provider/user_provider.dart';
 import 'package:amazon_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
 void main() {
@@ -34,6 +35,7 @@ class _MainAppState extends State<MainApp> {
   }
 
   Widget build(BuildContext context) {
+  
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -62,3 +64,5 @@ class _MainAppState extends State<MainApp> {
     );
   }
 }
+
+

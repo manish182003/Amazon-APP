@@ -1,4 +1,5 @@
 import 'package:amazon_app/common/widgets/bottom_bar.dart';
+import 'package:amazon_app/features/address/screens/address_screen.dart';
 import 'package:amazon_app/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_app/features/auth/screens/auth_screen.dart';
 import 'package:amazon_app/features/home/screens/categorydeals.dart';
@@ -47,13 +48,19 @@ Route<dynamic> generateroute(RouteSettings routeName) {
           searchqury: Searchquery,
         ),
       );
-      case ProductDetailsScreen.route:
+    case ProductDetailsScreen.route:
       var product = routeName.arguments as Product;
       return MaterialPageRoute(
         settings: routeName,
         builder: (context) => ProductDetailsScreen(
           product: product,
         ),
+      );
+    case AddressScreen.route:
+      var totalamount = routeName.arguments as String;
+      return MaterialPageRoute(
+        settings: routeName,
+        builder: (context) =>  AddressScreen(totalamount: totalamount),
       );
     default:
       return MaterialPageRoute(
