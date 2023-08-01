@@ -222,7 +222,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               padding: const EdgeInsets.all(10),
               child: custombutton(
                 text: 'Buy Now',
-                ontap: () {},
+                ontap: () {
+                  
+                },
               ),
             ),
             SizedBox(

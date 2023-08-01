@@ -156,4 +156,18 @@ userrouter.post('/api/add-to-cart',auth, async (req,res)=>{
 
       });
 
+      userrouter.get('/api/order/me',auth,async(req,res)=>{
+        
+        try{
+         const orderss=await Order.find({userid: req.user});
+         res.json(orderss);
+
+
+        }catch(e){
+         res.status(500).json({msg: e.message});
+        }
+
+
+      });
+
     module.exports=userrouter;

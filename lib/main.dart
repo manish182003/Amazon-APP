@@ -3,7 +3,7 @@ import 'package:amazon_app/constants/global%20variable.dart';
 import 'package:amazon_app/features/admin/screens/admin_screen.dart';
 import 'package:amazon_app/features/auth/screens/auth_screen.dart';
 import 'package:amazon_app/features/auth/services/auth_service.dart';
-import 'package:amazon_app/features/home/screens/homescreen.dart';
+
 import 'package:amazon_app/provider/user_provider.dart';
 import 'package:amazon_app/routes.dart';
 import 'package:flutter/material.dart';
